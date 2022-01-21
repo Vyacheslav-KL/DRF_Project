@@ -1,7 +1,11 @@
 import React from 'react';
 import './styles/App.css';
-import UserList from './components/user.js'
-import axios from 'axios'
+import UserList from './components/user.js';
+// import ProjectList from './components/project.js';
+// import TodoList from './components/todo.js';
+import axios from 'axios';
+
+const API_URL = 'http://127.0.0.1:8000/api/';
 
 class App extends React.Component {
     constructor(props) {
@@ -12,7 +16,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/users')
+        axios.get(`${API_URL}get-users`)
             .then(response => {
                 const users = response.data
                 this.setState(
