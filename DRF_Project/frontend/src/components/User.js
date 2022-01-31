@@ -13,7 +13,6 @@ const UserItem = ({user}) => {
 }
 
 const UserList = ({users}) => {
-    //console.log(users)
     return (
         <table className="table">
             <tr>

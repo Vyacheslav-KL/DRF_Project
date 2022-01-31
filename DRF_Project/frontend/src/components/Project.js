@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-  Link,
-  useParams
+    Link,
+    useParams
 } from "react-router-dom";
 
 
-const ProjectListItem = ({item}) => {
+const ProjectListItem = ({ item }) => {
     let link_to = `/project/${item.id}`
     return (
         <tr>
@@ -17,7 +17,7 @@ const ProjectListItem = ({item}) => {
     )
 }
 
-const ProjectList = ({items}) => {
+const ProjectList = ({ items }) => {
     //console.log(users)
     return (
         <table className="table">
@@ -32,15 +32,15 @@ const ProjectList = ({items}) => {
     )
 }
 
-const ProjectUserItem = ({item}) => {
+const ProjectUserItem = ({ item }) => {
     return (
         <li>
-        {item.username} ({item.email})
-    </li>
+            {item.username} ({item.email})
+        </li>
     )
 }
 
-const ProjectDetail = ({getProject, item}) => {
+const ProjectDetail = ({ getProject, item }) => {
     let { id } = useParams();
     getProject(id)
     let users = item.users ? item.users : []
@@ -52,10 +52,10 @@ const ProjectDetail = ({getProject, item}) => {
             <p></p>
             Users:
             <ol>
-            {users.map((user) => <ProjectUserItem item={user} />)}
+                {users.map((user) => <ProjectUserItem item={user} />)}
             </ol>
         </div>
     )
 }
 
-export {ProjectDetail, ProjectList}
+export { ProjectDetail, ProjectList }
