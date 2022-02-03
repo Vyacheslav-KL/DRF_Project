@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.renderers import JSONRenderer
+# from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.pagination import LimitOffsetPagination
@@ -17,7 +17,7 @@ class LimitOfTodo(LimitOffsetPagination):
 
 
 class ProjectViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer]
+    # renderer_classes = [JSONRenderer]
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -26,7 +26,7 @@ class ProjectViewSet(ModelViewSet):
 
 
 class ToDoViewSet(ModelViewSet):
-    renderer_classes = [JSONRenderer]
+    # renderer_classes = [JSONRenderer]
 
     queryset = ToDo.objects.all()
     serializer_class = ToDoSerializer
