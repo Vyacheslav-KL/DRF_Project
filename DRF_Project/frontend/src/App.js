@@ -15,6 +15,7 @@ import { ProjectList, ProjectDetail } from './components/Project.js'
 import ToDoList from './components/ToDo.js'
 import LoginForm from './components/Auth.js'
 import Cookies from 'universal-cookie';
+import TodoForm from './components/TodoForm';
 
 
 
@@ -77,6 +78,27 @@ class App extends React.Component {
         }
     }
 
+    deleteTodo(id) {
+        const headers = this.get_headers()
+        axios.delete(get_url(`/api/todos/${id}`), {headers, headers})
+            .then(response => {
+                this.setState({todos: this.state.todos.filter((item) => item.id !== id)})
+            }).catch(error => console.log(error))
+    }
+
+    createTodo(name, user) {
+        const headers = this.get_headers()
+        const data = {name: name, user: user}
+        axios.post(get_url(`/api/todos/`), data, {headers, headers})
+            .then(response => {
+                let new_todo = response.data
+                const user = this.state.users.filter((item) => item.id === new_todo.user)[0]
+                new_todo.user = user
+                this.setState({todos: [...this.state.todos, new_todo]})
+            }).catch(error => console.log(error))
+
+    }
+
     render() {
         return (
             <Router>
@@ -96,12 +118,20 @@ class App extends React.Component {
                             <Route exact path='/projects'>
                                 <ProjectList items={this.state.projects} />
                             </Route>
-                            <Route exact path='/todos'>
-                                <ToDoList items={this.state.todos} />
-                            </Route>
-                            
-                            <Route exact path='/login' component={() => <LoginForm get_token={(username, password) => this.get_token(username, password)} />} />
-                            <Route path="/project/:id" children={<ProjectDetail getProject={(id) => this.getProject(id)} item={this.state.project} />} />
+                            <Route exact path='/todos' component={() => 
+                                <ToDoList items={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)} />}
+                            />
+                            <Route exact path='/todos/create' component={() => <TodoForm 
+                                users={this.state.users} 
+                                createTodo={(name, user) => this.createTodo(name, user)}
+                                />}/>
+                            <Route exact path='/login' component={() => <LoginForm
+                                get_token={(username, password) => this.get_token(username, password)}
+                                />} />
+                            <Route path="/project/:id" children=
+                                {
+                                    <ProjectDetail getProject={(id) => this.getProject(id)} item={this.state.project}/>
+                                }/>
                         </Switch>
                     </div>
                 </main>

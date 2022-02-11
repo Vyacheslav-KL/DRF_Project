@@ -13,6 +13,7 @@ const ProjectListItem = ({ item }) => {
             <td>{item.name}</td>
             <td>{item.repository}</td>
             <td><Link to={link_to}>Detail</Link></td>
+            <td><button type='button'>Delete</button></td>
         </tr>
     )
 }
